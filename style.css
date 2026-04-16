@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    background-color: #1a1a1a; /* Fondo oscuro tipo gamer/dev */
+    color: white;
+    font-family: sans-serif;
+}
+
+.dashboard-grid {
+    display: flex; /* Flexbox para separar sidebar de contenido */
+    height: 100vh;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #333;
+    padding: 20px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+}
+
+.card {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #555;
+}
