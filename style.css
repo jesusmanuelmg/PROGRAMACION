@@ -1,62 +1,187 @@
 :root {
-    --bg-dark: #121212;
-    --sidebar-bg: #1e1e26;
+    --bg-dark: #0a0a0c;
+    --card-bg: #16161d;
     --accent-blue: #007bff;
     --text-main: #e0e0e0;
 }
 
-body {
+/* Configuración General */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
     background-color: var(--bg-dark);
     color: var(--text-main);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
 }
 
-.dashboard-grid {
+/* --- BARRA DE NAVEGACIÓN --- */
+.navbar {
+    background: var(--card-bg);
+    height: 80px;
+    width: 100%;
     display: flex;
-    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.sidebar {
-    width: 240px;
-    background-color: var(--sidebar-bg);
-    padding: 30px 20px;
-    border-right: 1px solid #333;
+.logo {
+    color: var(--accent-blue);
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.sidebar h2 {
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    transition: .3s;
+}
+
+.navbar ul li a:hover {
+    color: var(--accent-blue);
+}
+
+/* Botón Hamburguesa (Oculto en PC) */
+#check { display: none; }
+
+.checkbtn {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.bar {
+    width: 30px;
+    height: 3px;
+    background-color: var(--accent-blue);
+    border-radius: 5px;
+}
+
+/* --- CARRUSEL (SLIDER) --- */
+.slider-section {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.slider {
+    display: flex;
+    width: 300%;
+    animation: slide-anim 15s infinite ease-in-out;
+}
+
+.slide img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+@keyframes slide-anim {
+    0%, 30% { transform: translateX(0); }
+    33%, 63% { transform: translateX(-33.33%); }
+    66%, 96% { transform: translateX(-66.66%); }
+    100% { transform: translateX(0); }
+}
+
+/* --- SECCIÓN SOBRE MÍ --- */
+.about-section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.about-section h2 {
     color: var(--accent-blue);
     margin-bottom: 30px;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 2.5rem;
 }
 
-.sidebar ul {
-    list-style: none; /* Quita los puntos */
-}
-
-.sidebar li {
-    padding: 12px 0;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.sidebar li:hover {
-    color: var(--accent-blue);
-    padding-left: 5px;
-}
-
-.main-content {
-    flex-grow: 1;
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
     padding: 50px;
+    max-width: 850px;
+    margin: 0 auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-.card {
-    background-color: #25252d;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #383842;
-    max-width: 400px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+.glass-card p {
+    line-height: 1.8;
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+.btn-more {
+    margin-top: 30px;
+    padding: 15px 40px;
+    background: transparent;
+    border: 2px solid var(--accent-blue);
+    color: var(--accent-blue);
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: 0.4s;
+}
+
+.btn-more:hover {
+    background: var(--accent-blue);
+    color: white;
+    box-shadow: 0 0 25px rgba(0, 123, 255, 0.5);
+    transform: translateY(-5px);
+}
+
+/* --- MODO MÓVIL (Hamburguesa) --- */
+@media (max-width: 950px) {
+    .checkbtn { display: flex; }
+    
+    .navbar ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #111;
+        top: 80px;
+        left: -100%;
+        flex-direction: column;
+        padding-top: 50px;
+        transition: .5s;
+    }
+
+    #check:checked ~ ul {
+        left: 0;
+    }
+
+    .navbar ul li {
+        margin: 15px 0;
+    }
+
+    .navbar ul li a {
+        font-size: 20px;
+    }
 }

@@ -2,22 +2,43 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - Jesús Mora</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Personalizado - Jesús Mora</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="dashboard-grid">
-        <nav class="sidebar">
-            <h2>Gestión</h2>
-            <ul>
-                <li>Inicio</li>
-                <li>Perfil</li>
-            </ul>
-        </nav>
-        <main class="main-content">
-            <h1>Bienvenido al Sistema</h1>
-            <div class="card">Aquí aparecerán tus datos pronto.</div>
-        </main>
+
+    <nav class="navbar">
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <label class="logo">Pagina de Jesus Mora</label>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Sobre Mí</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="slider-section">
+            <div class="slider">
+                <div class="slide"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000" alt="Programación"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000" alt="Código"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000" alt="Ciberseguridad"></div>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h2>Sobre Mí</h2>
+            <p>Hola, soy Jesús Manuel Mora. Este es mi software personalizado diseñado con CSS puro. Me apasiona la programación y el desarrollo de sistemas me gustaria aprender mas y estar
+                enfocado en la programacion y cualquier persona que me ayude lo apreciaria demasiado.</p>
+        </section>
     </div>
+
 </body>
 </html>
