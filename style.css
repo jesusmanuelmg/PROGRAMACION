@@ -1,29 +1,62 @@
+:root {
+    --bg-dark: #121212;
+    --sidebar-bg: #1e1e26;
+    --accent-blue: #007bff;
+    --text-main: #e0e0e0;
+}
+
 body {
     margin: 0;
-    background-color: #1a1a1a; /* Fondo oscuro tipo gamer/dev */
-    color: white;
-    font-family: sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .dashboard-grid {
-    display: flex; /* Flexbox para separar sidebar de contenido */
+    display: flex;
     height: 100vh;
 }
 
 .sidebar {
-    width: 200px;
-    background-color: #333;
-    padding: 20px;
+    width: 240px;
+    background-color: var(--sidebar-bg);
+    padding: 30px 20px;
+    border-right: 1px solid #333;
+}
+
+.sidebar h2 {
+    color: var(--accent-blue);
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.sidebar ul {
+    list-style: none; /* Quita los puntos */
+}
+
+.sidebar li {
+    padding: 12px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sidebar li:hover {
+    color: var(--accent-blue);
+    padding-left: 5px;
 }
 
 .main-content {
     flex-grow: 1;
-    padding: 40px;
+    padding: 50px;
 }
 
 .card {
-    background-color: #444;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #555;
+    background-color: #25252d;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #383842;
+    max-width: 400px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
