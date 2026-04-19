@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Neón - Jesús Mora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1 class="welcome-text">Bienvenido a la calculadora de Jesús Mora</h1>
+        <p class="subtitle">Donde puedes proyectar tu calculadora a otro nivel</p>
+    </header>
+
+    <div class="main-container">
+
+        <aside class="sidebar left-sidebar">
+            <div class="ad-box">
+                <span class="ad-title">PUBLICIDAD AQUÍ</span>
+                <p class="ad-text">¡Proyecta tu marca!</p>
+            </div>
+            <div class="ad-placeholder">Anuncio</div>
+            <div class="ad-placeholder">Anuncio</div>
+        </aside>
+
+        <main class="content-area">
+            <div class="calculator-wrapper">
+                <div class="calculator">
+                    <div class="display">
+                        <input type="text" id="result" placeholder="0" readonly>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn-sci" onclick="sin()">sin</button>
+                        <button class="btn-sci" onclick="cos()">cos</button>
+                        <button class="btn-sci" onclick="tan()">tan</button>
+                        <button class="btn-sci" onclick="log()">log</button>
+                        
+                        <button class="btn-clear" onclick="clearScreen()">C</button>
+                        <button class="btn-operator" onclick="del()">DEL</button>
+                        <button class="btn-operator" onclick="input('%')">%</button>
+                        <button class="btn-operator" onclick="input('/')">÷</button>
+                        
+                        <button onclick="input('7')">7</button>
+                        <button onclick="input('8')">8</button>
+                        <button onclick="input('9')">9</button>
+                        <button class="btn-operator" onclick="input('*')">×</button>
+                        
+                        <button onclick="input('4')">4</button>
+                        <button onclick="input('5')">5</button>
+                        <button onclick="input('6')">6</button>
+                        <button class="btn-operator" onclick="input('-')">-</button>
+                        
+                        <button onclick="input('1')">1</button>
+                        <button onclick="input('2')">2</button>
+                        <button onclick="input('3')">3</button>
+                        <button class="btn-operator" onclick="input('+')">+</button>
+                        
+                        <button onclick="input('0')">0</button>
+                        <button onclick="input('.')">.</button>
+                        <button onclick="input('Math.PI')">π</button>
+                        <button class="btn-equal" onclick="calculate()">=</button>
+                    </div>
+                </div>
+            </div>
+
+            <section class="notes-section">
+                <label for="free-notes" class="notes-label">Nota libre:</label>
+                <textarea id="free-notes" placeholder="Escribe lo que quieras aquí..."></textarea>
+            </section>
+        </main>
+
+        <aside class="sidebar right-sidebar">
+            <div class="ad-box">
+                <span class="ad-title">ESPACIO PUBLICITARIO</span>
+                <p class="ad-text">¡Promociona tu proyecto!</p>
+            </div>
+            <div class="ad-placeholder">Anuncio</div>
+            <div class="ad-placeholder">Anuncio</div>
+        </aside>
+
+    </div> <script src="script.js"></script>
+</body>
+</html>

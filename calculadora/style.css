@@ -1,0 +1,237 @@
+:root {
+    --bg-color: #050505;
+    --card-bg: rgba(20, 20, 25, 0.85);
+    --neon-blue: #00d2ff;
+    --neon-yellow: #ffeb3b; /* Amarillo Neón / Oro */
+    --neon-sci: #ff007f; /* Rosa Neón para funciones */
+    --neon-clear: #ff3c3c; /* Rojo Neón */
+    --text-color: #ffffff;
+    --sidebar-width: 15%; /* Ancho de los laterales */
+    --header-height: 120px;
+}
+
+/* Configuración General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* --- ENCABEZADO / MENÚ SUPERIOR --- */
+.main-header {
+    background-color: #111;
+    height: var(--header-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid var(--neon-blue);
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+}
+
+.welcome-text {
+    font-size: 2rem;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue);
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #bbb;
+    margin-top: 5px;
+}
+
+/* --- CONTENEDOR PRINCIPAL (Flexbox Horizontal) --- */
+.main-container {
+    display: flex;
+    flex-grow: 1; /* Ocupa el resto de la altura */
+}
+
+/* --- BARRAS LATERALES (SIDEBARS) --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+}
+
+.left-sidebar {
+    border-right: 2px solid var(--neon-yellow);
+    box-shadow: 10px 0 20px rgba(255, 235, 59, 0.2);
+}
+
+.right-sidebar {
+    border-left: 2px solid var(--neon-yellow);
+    box-shadow: -10px 0 20px rgba(255, 235, 59, 0.2);
+}
+
+.ad-box {
+    border: 2px solid var(--neon-yellow);
+    background: rgba(255, 235, 59, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.3);
+}
+
+.ad-title {
+    color: var(--neon-yellow);
+    font-weight: bold;
+    font-size: 1rem;
+    text-shadow: 0 0 5px var(--neon-yellow);
+}
+
+.ad-text {
+    color: #eee;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.ad-placeholder {
+    height: 100px;
+    background: #1a1a1a;
+    border: 1px dashed #333;
+    color: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+/* --- ÁREA DE CONTENIDO CENTRAL --- */
+.content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000 70%);
+}
+
+.calculator-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Reutilizando y Ajustando el CSS de la Calculadora de Neón (anterior) */
+.calculator {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3), 0 0 10px var(--neon-blue);
+    width: 280px; /* Reducida un poco para la interfaz */
+}
+
+.display input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    text-align: right;
+    color: var(--neon-blue);
+    font-size: 1.8rem;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 8px var(--neon-blue);
+    transform: scale(1.03);
+}
+
+.btn-operator { color: var(--neon-blue); }
+.btn-sci { color: var(--neon-sci); font-size: 0.8rem; }
+.btn-clear { color: var(--neon-clear); }
+
+.btn-equal {
+    background: var(--neon-blue);
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.btn-equal:hover {
+    background: white;
+    box-shadow: 0 0 25px white;
+}
+
+/* --- SECCIÓN DE NOTAS (Abajo de la calculadora) --- */
+.notes-section {
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.notes-label {
+    color: var(--neon-yellow);
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--neon-yellow);
+}
+
+#free-notes {
+    height: 100px;
+    background-color: #111;
+    border: 1px solid rgba(255, 235, 59, 0.3);
+    border-radius: 10px;
+    color: #eee;
+    padding: 15px;
+    font-size: 1rem;
+    outline: none;
+    resize: none; /* Evita que el usuario cambie el tamaño manualmente */
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.1);
+}
+
+#free-notes:focus {
+    border-color: var(--neon-yellow);
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.3);
+}
+
+/* --- RESPONSIVE (Móviles) --- */
+@media (max-width: 900px) {
+    --sidebar-width: 0px; /* Ocultar laterales en móvil */
+    .sidebar { display: none; }
+    .content-area { width: 100%; }
+    .main-header .welcome-text { font-size: 1.5rem; }
+}
