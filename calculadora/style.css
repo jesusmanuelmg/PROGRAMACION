@@ -1,140 +1,79 @@
 :root {
-    --bg-color: #050505;
-    --neon-blue: #00d2ff;
-    --neon-yellow: #ffeb3b;
-    --neon-sci: #ff007f;
-    --neon-clear: #ff3c3c;
-    --text-color: #ffffff;
+    --cyan: #00d2ff;
+    --yellow: #ffeb3b;
+    --dark: #050505;
+    --font-tech: 'Orbitron', sans-serif;
+    --font-mono: 'Fira Code', monospace;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--dark); color: white; font-family: var(--font-mono); overflow-x: hidden; }
 
-body { background: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; }
+/* Control de Pestañas */
+.tab-content { display: none; width: 100%; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
 
-/* Header con Neón Reforzado */
-.main-header { 
-    background: #111; 
-    padding: 20px; 
-    text-align: center; 
-    border-bottom: 2px solid var(--neon-blue); 
-    box-shadow: 0 0 25px var(--neon-blue); /* Brillo más fuerte */
+/* Título Neón */
+.neon-title { font-family: var(--font-tech); color: var(--cyan); text-shadow: 0 0 15px var(--cyan); text-align: center; padding: 25px 0; font-size: 1.8rem; letter-spacing: 2px; }
+
+/* --- GRID RESPONSIVO (PC/Laptop) --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 350px 300px 1fr;
+    grid-gap: 20px;
+    padding: 0 20px;
+    max-width: 1500px;
+    margin: 0 auto;
 }
 
-.welcome-text { 
-    font-size: clamp(1.2rem, 4vw, 2rem); 
-    color: var(--neon-blue); 
-    text-shadow: 0 0 15px var(--neon-blue), 0 0 5px white; /* Doble capa de brillo */
+/* --- RESPONSIVIDAD (Móvil y Tablet) --- */
+@media (max-width: 1100px) {
+    .dashboard-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* Layout */
-.main-container { display: flex; flex-grow: 1; }
-
-.sidebar { width: 220px; background: #0a0a0a; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
-.left-sidebar { border-right: 2px solid var(--neon-yellow); box-shadow: 5px 0 15px rgba(255, 235, 59, 0.3); }
-.right-sidebar { border-left: 2px solid var(--neon-yellow); box-shadow: -5px 0 15px rgba(255, 235, 59, 0.3); }
-
-/* Imágenes Laterales Corregidas */
-.image-neon-container {
-    height: 150px;
-    border-radius: 10px;
-    background-size: cover;
-    background-position: center;
-    border: 2px solid var(--neon-yellow); /* Borde visible */
-    box-shadow: 0 0 15px var(--neon-yellow); /* Brillo amarillo */
+@media (max-width: 768px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .neon-title { font-size: 1.4rem; }
+    .sidebar { width: 240px; }
 }
 
-/* Enlaces a imágenes reales de calculadoras/tecnología neón */
-.img-1 { background-image: url('https://images.unsplash.com/photo-1611125832047-1d7ad1e893be?auto=format&fit=crop&w=300'); }
-.img-2 { background-image: url('https://images.unsplash.com/photo-1587141744103-b29361df1d61?auto=format&fit=crop&w=300'); }
-.img-3 { background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300'); }
-.img-4 { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300'); }
+.card { background: rgba(15, 15, 20, 0.98); border-radius: 15px; padding: 15px; border: 1px solid #222; }
 
-/* Calculadora con EFECTO NEÓN TOTAL */
-.content-area { 
-    flex-grow: 1; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    padding: 20px; 
-    background: radial-gradient(circle, #1a1a1a, #000); 
-}
+/* Calculadora */
+.calc-card { border: 2px solid var(--cyan); box-shadow: 0 0 15px rgba(0, 210, 255, 0.1); }
+.display input { width: 100%; height: 60px; background: #000; border: 1px solid var(--cyan); color: var(--cyan); font-family: var(--font-mono); font-size: 2rem; text-align: right; padding: 10px; margin-bottom: 15px; border-radius: 5px; box-shadow: inset 0 0 10px var(--cyan); }
+.keypad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+button { padding: 15px; background: #111; border: 1px solid #333; color: white; font-family: var(--font-mono); border-radius: 8px; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+button:hover { border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+.btn-equal { background: var(--cyan); color: #000; font-weight: bold; font-family: var(--font-tech); }
 
-.calculator { 
-    background: rgba(20,20,25,0.95); 
-    padding: 25px; 
-    border-radius: 25px; 
-    border: 2px solid var(--neon-blue); 
-    /* El truco del neón: múltiples sombras */
-    box-shadow: 0 0 10px var(--neon-blue), 
-                0 0 20px var(--neon-blue), 
-                inset 0 0 10px rgba(0, 210, 255, 0.2); 
-    width: 100%; 
-    max-width: 320px; 
-}
+/* Historial */
+.history-card { border: 1px solid var(--cyan); height: 450px; display: flex; flex-direction: column; }
+.history-list { flex: 1; overflow-y: auto; font-size: 0.85rem; color: #00d2ff; padding: 5px; }
 
-.display input { 
-    width: 100%; 
-    height: 60px; 
-    background: #000; 
-    border-radius: 10px;
-    border: 1px solid var(--neon-blue);
-    color: var(--neon-blue); 
-    font-size: 2rem; 
-    text-align: right; 
-    padding: 10px;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px var(--neon-blue);
-}
+/* Slider */
+.slider-card { border: 2px solid var(--yellow); height: 450px; position: relative; padding: 0; overflow: hidden; }
+.slide { display: none; height: 100%; }
+.slide img { width: 100%; height: 100%; object-fit: cover; }
+.slide-text { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); color: var(--yellow); text-align: center; padding: 15px; font-family: var(--font-tech); }
 
-.buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+/* Terminal */
+.terminal-box { background: #000 !important; height: 400px; display: flex; flex-direction: column; }
+#terminal-output { flex: 1; overflow-y: auto; color: #0f0; padding: 15px; font-size: 0.9rem; }
+.terminal-input-line { display: flex; gap: 10px; padding: 10px; border-top: 1px solid #030; }
+#term-input { background: transparent; border: none; color: white; flex: 1; outline: none; }
 
-button { 
-    padding: 18px; 
-    border-radius: 12px; 
-    border: 1px solid rgba(255,255,255,0.1); 
-    background: #1a1a1a; 
-    color: white; 
-    font-weight: bold;
-    cursor: pointer; 
-    transition: 0.3s; 
-}
+/* Sidebar */
+.menu-btn { position: fixed; top: 20px; left: 20px; z-index: 1100; color: var(--cyan); font-size: 1.8rem; cursor: pointer; }
+.sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100%; background: #0a0a0a; border-right: 2px solid var(--cyan); transition: 0.3s; z-index: 1050; padding-top: 80px; }
+.sidebar.active { left: 0; }
+.sidebar ul li { padding: 18px 25px; color: #888; cursor: pointer; border-bottom: 1px solid #111; }
+.sidebar ul li.active { color: var(--cyan); border-left: 4px solid var(--cyan); background: rgba(0,210,255,0.05); }
 
-button:hover { 
-    box-shadow: 0 0 15px var(--neon-blue); 
-    border-color: var(--neon-blue);
-    transform: translateY(-3px); 
-}
+/* Notas */
+.notes-card { grid-column: 1 / -1; border: 1px solid var(--yellow); margin-top: 20px; margin-bottom: 30px; }
+textarea { width: 100%; height: 100px; background: transparent; color: var(--yellow); border: none; padding: 10px; font-family: var(--font-mono); resize: none; outline: none; }
 
-.btn-operator { color: var(--neon-blue); border-color: rgba(0, 210, 255, 0.3); }
-.btn-sci { color: var(--neon-sci); font-size: 0.9rem; border-color: rgba(255, 0, 127, 0.3); }
-.btn-clear { color: var(--neon-clear); border-color: rgba(255, 60, 60, 0.3); }
-
-.btn-equal { 
-    background: var(--neon-blue); 
-    color: black; 
-    box-shadow: 0 0 20px var(--neon-blue); 
-}
-
-/* Nota Libre con brillo amarillo */
-.notes-section { width: 100%; max-width: 320px; margin-top: 25px; }
-.notes-label { color: var(--neon-yellow); text-shadow: 0 0 5px var(--neon-yellow); margin-bottom: 5px; display: block; }
-
-textarea { 
-    width: 100%; 
-    height: 100px; 
-    background: #000; 
-    color: white; 
-    border: 2px solid var(--neon-yellow); 
-    border-radius: 12px; 
-    padding: 12px; 
-    box-shadow: 0 0 10px rgba(255, 235, 59, 0.2);
-    resize: none; 
-}
-
-/* Móvil Responsivo */
-@media (max-width: 800px) {
-    .main-container { flex-direction: column; }
-    .sidebar { width: 100%; order: 2; padding: 15px; flex-direction: row; overflow-x: auto; border: none; border-top: 2px solid var(--neon-yellow); }
-    .image-neon-container { min-width: 150px; height: 110px; }
-    .content-area { order: 1; padding: 15px; }
-}
+.prev, .next { position: absolute; top: 50%; padding: 15px; color: white; cursor: pointer; z-index: 10; background: rgba(0,0,0,0.4); border-radius: 50%; margin: 0 5px; }
+.next { right: 0; }
