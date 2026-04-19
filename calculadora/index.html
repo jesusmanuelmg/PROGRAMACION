@@ -2,113 +2,207 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistemas Mora - Core v1.2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SISTEMAS MORA - CORE v1.7.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --cyan: #00d2ff; --yellow: #ffeb3b; --dark: #050505; --neon-green: #0f0; --glass: rgba(255, 255, 255, 0.05); }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--dark); color: white; font-family: 'Fira Code', monospace; overflow-x: hidden; }
+
+        /* --- ANIMACIONES --- */
+        @keyframes pulse-neon { 0% { box-shadow: 0 0 5px var(--cyan); } 50% { box-shadow: 0 0 20px var(--cyan); } 100% { box-shadow: 0 0 5px var(--cyan); } }
+        @keyframes slideIn { from { transform: translateX(-20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* --- NAVEGACIÓN --- */
+        .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100%; background: #0a0a0a; border-right: 2px solid var(--cyan); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1050; padding-top: 70px; }
+        .sidebar.active { left: 0; box-shadow: 10px 0 30px rgba(0, 210, 255, 0.2); }
+        .sidebar ul li { padding: 18px 25px; color: #888; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s; border-bottom: 1px solid #111; }
+        .sidebar ul li:hover, .sidebar ul li.active { color: var(--cyan); background: var(--glass); border-left: 5px solid var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+        .menu-btn { position: fixed; top: 15px; left: 15px; z-index: 1100; color: var(--cyan); font-size: 1.5rem; cursor: pointer; border: 1px solid var(--cyan); padding: 8px; border-radius: 5px; background: rgba(0,0,0,0.9); transition: 0.3s; }
+        .menu-btn:hover { box-shadow: 0 0 15px var(--cyan); }
+
+        /* --- LAYOUT --- */
+        .tab-content { display: none; padding: 80px 20px 20px; min-height: 100vh; }
+        .tab-content.active { display: block; animation: slideIn 0.5s ease-out; }
+        .neon-title { font-family: 'Orbitron'; color: var(--cyan); text-shadow: 0 0 15px var(--cyan); text-align: center; margin-bottom: 30px; letter-spacing: 3px; }
+
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+        .card { background: rgba(10, 10, 15, 0.9); border-radius: 15px; padding: 20px; border: 1px solid #222; backdrop-filter: blur(10px); }
+
+        /* --- CALCULADORA AVANZADA --- */
+        .calc-display-container { position: relative; margin-bottom: 20px; }
+        #result { width: 100%; height: 75px; background: #000; border: 2px solid var(--cyan); color: var(--cyan); font-family: 'Fira Code'; font-size: 2.2rem; text-align: right; padding: 15px; border-radius: 10px; outline: none; animation: pulse-neon 4s infinite; text-shadow: 0 0 10px var(--cyan); }
+        
+        .keypad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .keypad button { padding: 18px 5px; background: #151515; border: 1px solid #333; color: white; border-radius: 8px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.9rem; transition: 0.2s; position: relative; overflow: hidden; }
+        .keypad button:active { transform: scale(0.92); background: #222; }
+        .keypad button::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--cyan); opacity: 0; transition: 0.3s; }
+        .keypad button:active::after { opacity: 0.1; }
+        
+        .btn-sci { color: var(--yellow); font-size: 0.75rem; border-color: rgba(255, 235, 59, 0.3); }
+        .btn-op { color: var(--cyan); font-weight: bold; }
+        .btn-exe { background: var(--cyan) !important; color: #000 !important; font-weight: 900; grid-column: span 1; box-shadow: 0 0 15px var(--cyan); }
+
+        /* --- HISTORIAL --- */
+        .history-box { border: 1px solid var(--cyan); height: 450px; display: flex; flex-direction: column; }
+        #history-list { flex: 1; overflow-y: auto; padding-right: 5px; }
+        .hist-item { padding: 10px; border-bottom: 1px solid #222; animation: slideIn 0.3s ease; display: flex; justify-content: space-between; }
+        .btn-clear-hist { width: 100%; padding: 12px; background: transparent; border: 1px solid #444; color: #fff; cursor: pointer; margin-top: 10px; border-radius: 5px; font-family: 'Orbitron'; transition: 0.3s; }
+        .btn-clear-hist:hover { background: #ff4444; border-color: #ff4444; box-shadow: 0 0 15px #ff4444; }
+
+        /* --- TERMINAL --- */
+        .terminal-box { background: #000; border: 1px solid var(--neon-green); height: 450px; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0, 255, 0, 0.1); }
+        #terminal-output { flex: 1; overflow-y: auto; color: var(--neon-green); padding: 20px; font-size: 0.85rem; line-height: 1.6; }
+        .term-input-line { display: flex; align-items: center; gap: 10px; padding: 15px; background: #050505; border-top: 1px solid #030; }
+        #term-input { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-family: 'Fira Code'; font-size: 1rem; }
+    </style>
 </head>
 <body>
 
-    <div class="menu-btn" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </div>
+    <div class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
 
     <nav class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <i class="fas fa-microchip"></i>
-            <span>SISTEMAS MORA</span>
-        </div>
+        <div style="padding: 20px; color: var(--cyan); font-family: 'Orbitron'; font-weight: bold; border-bottom: 1px solid #222;">SYSTEM CORE</div>
         <ul>
-            <li onclick="openTab('calculadora')" id="li-calc" class="active"><i class="fas fa-calculator"></i> Calculadora</li>
-            <li onclick="openTab('terminal')" id="li-term"><i class="fas fa-terminal"></i> Terminal</li>
-            <li onclick="openTab('config')" id="li-conf"><i class="fas fa-cog"></i> Config</li>
+            <li onclick="openTab('calc-tab')" id="li-calc" class="active"><i class="fas fa-calculator"></i> CALCULADORA</li>
+            <li onclick="openTab('term-tab')" id="li-term"><i class="fas fa-terminal"></i> TERMINAL</li>
+            <li onclick="openTab('config-tab')" id="li-config"><i class="fas fa-cog"></i> AJUSTES</li>
         </ul>
     </nav>
 
-    <section id="calculadora" class="tab-content active">
-        <header class="main-header">
-            <h1 class="neon-title">CALCULADORA NEÓN</h1>
-        </header>
-
+    <section id="calc-tab" class="tab-content active">
+        <h1 class="neon-title">CALCULADORA NEÓN</h1>
         <div class="dashboard-grid">
-            <div class="card calc-card">
-                <div class="display">
-                    <input type="text" id="result" placeholder="0.00" readonly>
+            <div class="card">
+                <div class="calc-display-container">
+                    <input type="text" id="result" placeholder="0" readonly>
                 </div>
                 <div class="keypad">
-                    <button class="btn-sci" onclick="input('Math.sin(')">sin</button>
-                    <button class="btn-sci" onclick="input('Math.cos(')">cos</button>
-                    <button class="btn-sci" onclick="input('Math.tan(')">tan</button>
-                    <button class="btn-sci" onclick="input('Math.log10(')">log</button>
-                    <button class="btn-clear" onclick="clearScreen()">C</button>
-                    <button class="btn-del" onclick="del()">DEL</button>
+                    <button class="btn-sci" onclick="input('Math.sin(')">SIN</button>
+                    <button class="btn-sci" onclick="input('Math.cos(')">COS</button>
+                    <button class="btn-sci" onclick="input('Math.sqrt(')">√</button>
+                    <button class="btn-sci" onclick="input('**')">^</button>
+                    
+                    <button style="color:#ff4444" onclick="clearScreen()">C</button>
+                    <button onclick="del()">DEL</button>
                     <button class="btn-op" onclick="input('%')">%</button>
                     <button class="btn-op" onclick="input('/')">÷</button>
+                    
                     <button onclick="input('7')">7</button><button onclick="input('8')">8</button><button onclick="input('9')">9</button>
                     <button class="btn-op" onclick="input('*')">×</button>
+                    
                     <button onclick="input('4')">4</button><button onclick="input('5')">5</button><button onclick="input('6')">6</button>
                     <button class="btn-op" onclick="input('-')">-</button>
+                    
                     <button onclick="input('1')">1</button><button onclick="input('2')">2</button><button onclick="input('3')">3</button>
                     <button class="btn-op" onclick="input('+')">+</button>
-                    <button onclick="input('0')">0</button><button onclick="input('.')">.</button><button onclick="input('Math.PI')">π</button>
-                    <button class="btn-equal" onclick="calculate()">EXE</button>
+                    
+                    <button onclick="input('0')">0</button>
+                    <button onclick="input('.')">.</button>
+                    <button class="btn-sci" onclick="input('Math.PI')">π</button>
+                    <button class="btn-exe" onclick="calculate()">EXE</button>
                 </div>
             </div>
 
-            <div class="card history-card">
-                <h3><i class="fas fa-list-ul"></i> Historial</h3>
-                <div id="history-list" class="history-list"></div>
-                <button class="btn-history-clear" onclick="clearHistory()">Borrar Datos</button>
-            </div>
-
-            <div class="card slider-card">
-                <div class="slider-container">
-                    <div class="slide fade">
-                        <img src="https://res.cloudinary.com/dz209s6jk/image/upload/v1669934210/Screenshots/qxrlrqlwptcnn5z8ajt5.jpg">
-                        <div class="slide-text">Realiza tus propios calculos</div>
-                    </div>
-                    <div class="slide fade">
-                        <img src="https://pymstatic.com/26218/conversions/como-hacer-amigos-en-internet-wide.jpg">
-                        <div class="slide-text">Indaga por nuestra web para más informacion y conocimientos</div>
-                    </div>
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <div class="card history-box">
+                <div style="color:var(--cyan); font-family:'Orbitron'; font-size:0.8rem; margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:5px;">
+                    <i class="fas fa-history"></i> REGISTRO_DE_DATOS
                 </div>
+                <div id="history-list"></div>
+                <button class="btn-clear-hist" onclick="clearHistory()">BORRAR DATOS</button>
             </div>
         </div>
     </section>
 
-    <section id="terminal" class="tab-content">
-        <header class="main-header"><h1 class="neon-title" style="color:#0f0; text-shadow: 0 0 15px #0f0;">TERMINAL CORE</h1></header>
-        <div class="dashboard-grid">
-            <div class="card terminal-box" style="grid-column: 1 / -1; border-color: #0f0;">
-                <div id="terminal-output">> SISTEMA LISTO...</div>
-                <div class="terminal-input-line">
-                    <span style="color:#0f0">MORA@CORE:~$</span>
-                    <input type="text" id="term-input" onkeydown="runCommand(event)">
+    <section id="term-tab" class="tab-content">
+        <h1 class="neon-title" style="color:var(--neon-green);">TERMINAL CORE</h1>
+        <div class="card terminal-box">
+            <div id="terminal-output">> NÚCLEO INICIALIZADO...<br>> ESPERANDO COMANDO...</div>
+            <div class="term-input-line">
+                <span style="color: var(--neon-green);">MORA@CORE:~$</span>
+                <input type="text" id="term-input" autocomplete="off" onkeydown="if(event.key==='Enter') sendCommand()">
+                <button onclick="sendCommand()" style="background:var(--neon-green); border:none; padding:5px 15px; cursor:pointer; font-weight:bold; border-radius:4px;">EXE</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="config-tab" class="tab-content">
+        <h1 class="neon-title" style="color:var(--yellow);">SISTEMA CONFIG</h1>
+        <div class="card" style="max-width:600px; margin:0 auto; border:1px solid var(--yellow);">
+            <div style="margin-bottom:20px;">
+                <label style="color:var(--yellow); display:block; margin-bottom:10px;">PERSONALIZACIÓN DE INTERFAZ</label>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #222;">
+                    <span>Color Neón Primario:</span>
+                    <input type="color" onchange="document.documentElement.style.setProperty('--cyan', this.value)" value="#00d2ff">
                 </div>
             </div>
+            <button onclick="location.reload()" style="width:100%; padding:15px; background:var(--yellow); border:none; font-family:'Orbitron'; font-weight:bold; cursor:pointer;">REINICIAR NÚCLEO</button>
         </div>
     </section>
 
-    <section id="config" class="tab-content">
-        <header class="main-header"><h1 class="neon-title" style="color:var(--yellow); text-shadow: 0 0 15px var(--yellow);">CONFIGURACIÓN</h1></header>
-        <div class="dashboard-grid">
-            <div class="card" style="border-color: var(--yellow); grid-column: 1 / -1;">
-                <h3 style="color:var(--yellow)">OPCIONES DE INTERFAZ</h3>
-                <p style="margin-top:20px">Sensibilidad Neón: <input type="range" style="width:100%"></p>
-            </div>
-        </div>
-    </section>
+    <script>
+        // --- NAVEGACIÓN ---
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.sidebar ul li').forEach(l => l.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('li-' + tabId.split('-')[0]).classList.add('active');
+            if(window.innerWidth < 768) toggleSidebar();
+        }
 
-    <div class="dashboard-grid">
-        <div class="card notes-card">
-            <label class="notes-label"><i class="fas fa-terminal"></i> CONSOLA DE APUNTES:</label>
-            <textarea id="free-notes" placeholder="Escribe aquí..."></textarea>
-        </div>
-    </div>
+        // --- CALCULADORA ---
+        const display = document.getElementById('result');
+        const historyList = document.getElementById('history-list');
 
-    <script src="script.js"></script>
+        function input(v) { 
+            if(display.value === "ERR" || display.value === "undefined") display.value = "";
+            display.value += v; 
+        }
+        function clearScreen() { display.value = ""; }
+        function del() { display.value = display.value.slice(0, -1); }
+
+        function calculate() {
+            if(!display.value) return;
+            try {
+                let expression = display.value.replace(/×/g, '*').replace(/÷/g, '/');
+                let res = eval(expression);
+                if(res !== undefined) {
+                    const item = document.createElement('div');
+                    item.className = 'hist-item';
+                    item.innerHTML = `<span>> ${display.value}</span> <span style="color:var(--cyan)">${res}</span>`;
+                    historyList.prepend(item);
+                    display.value = res;
+                }
+            } catch(e) { display.value = "ERR"; }
+        }
+        function clearHistory() { 
+            historyList.style.opacity = "0";
+            setTimeout(() => { historyList.innerHTML = ""; historyList.style.opacity = "1"; }, 300);
+        }
+
+        // --- TERMINAL ---
+        function sendCommand() {
+            const inp = document.getElementById('term-input');
+            const out = document.getElementById('terminal-output');
+            const cmd = inp.value.trim().toLowerCase();
+            if(!cmd) return;
+
+            out.innerHTML += `<div><span style="color:var(--neon-green)">MORA@CORE:~$</span> ${inp.value}</div>`;
+            
+            switch(cmd) {
+                case 'help': out.innerHTML += "<div>- status: Diagnóstico<br>- clear: Limpiar pantalla<br>- date: Tiempo real<br>- whoami: Identidad</div>"; break;
+                case 'clear': out.innerHTML = "> SISTEMA LISTO ..."; break;
+                case 'status': out.innerHTML += "<div>> CPU: 0.5% | NÚCLEO NEÓN: OPERATIVO</div>"; break;
+                case 'date': out.innerHTML += `<div>> ${new Date().toLocaleString()}</div>`; break;
+                case 'whoami': out.innerHTML += "<div>> USUARIO: JESÚS MORA (ADMIN)</div>"; break;
+                default: out.innerHTML += `<div>> '${cmd}' no es un comando interno.</div>`;
+            }
+            inp.value = "";
+            out.scrollTop = out.scrollHeight;
+        }
+    </script>
 </body>
 </html>
