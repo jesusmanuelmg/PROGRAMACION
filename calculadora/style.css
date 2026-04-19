@@ -1,237 +1,140 @@
 :root {
     --bg-color: #050505;
-    --card-bg: rgba(20, 20, 25, 0.85);
     --neon-blue: #00d2ff;
-    --neon-yellow: #ffeb3b; /* Amarillo Neón / Oro */
-    --neon-sci: #ff007f; /* Rosa Neón para funciones */
-    --neon-clear: #ff3c3c; /* Rojo Neón */
+    --neon-yellow: #ffeb3b;
+    --neon-sci: #ff007f;
+    --neon-clear: #ff3c3c;
     --text-color: #ffffff;
-    --sidebar-width: 15%; /* Ancho de los laterales */
-    --header-height: 120px;
 }
 
-/* Configuración General */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, sans-serif;
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body { background: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; }
+
+/* Header con Neón Reforzado */
+.main-header { 
+    background: #111; 
+    padding: 20px; 
+    text-align: center; 
+    border-bottom: 2px solid var(--neon-blue); 
+    box-shadow: 0 0 25px var(--neon-blue); /* Brillo más fuerte */
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
+.welcome-text { 
+    font-size: clamp(1.2rem, 4vw, 2rem); 
+    color: var(--neon-blue); 
+    text-shadow: 0 0 15px var(--neon-blue), 0 0 5px white; /* Doble capa de brillo */
 }
 
-/* --- ENCABEZADO / MENÚ SUPERIOR --- */
-.main-header {
-    background-color: #111;
-    height: var(--header-height);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-bottom: 2px solid var(--neon-blue);
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-}
+/* Layout */
+.main-container { display: flex; flex-grow: 1; }
 
-.welcome-text {
-    font-size: 2rem;
-    color: var(--neon-blue);
-    text-shadow: 0 0 10px var(--neon-blue);
-    letter-spacing: 1px;
-}
+.sidebar { width: 220px; background: #0a0a0a; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
+.left-sidebar { border-right: 2px solid var(--neon-yellow); box-shadow: 5px 0 15px rgba(255, 235, 59, 0.3); }
+.right-sidebar { border-left: 2px solid var(--neon-yellow); box-shadow: -5px 0 15px rgba(255, 235, 59, 0.3); }
 
-.subtitle {
-    font-size: 1.1rem;
-    color: #bbb;
-    margin-top: 5px;
-}
-
-/* --- CONTENEDOR PRINCIPAL (Flexbox Horizontal) --- */
-.main-container {
-    display: flex;
-    flex-grow: 1; /* Ocupa el resto de la altura */
-}
-
-/* --- BARRAS LATERALES (SIDEBARS) --- */
-.sidebar {
-    width: var(--sidebar-width);
-    background-color: #111;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 15px;
-}
-
-.left-sidebar {
-    border-right: 2px solid var(--neon-yellow);
-    box-shadow: 10px 0 20px rgba(255, 235, 59, 0.2);
-}
-
-.right-sidebar {
-    border-left: 2px solid var(--neon-yellow);
-    box-shadow: -10px 0 20px rgba(255, 235, 59, 0.2);
-}
-
-.ad-box {
-    border: 2px solid var(--neon-yellow);
-    background: rgba(255, 235, 59, 0.05);
-    padding: 15px;
+/* Imágenes Laterales Corregidas */
+.image-neon-container {
+    height: 150px;
     border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 235, 59, 0.3);
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--neon-yellow); /* Borde visible */
+    box-shadow: 0 0 15px var(--neon-yellow); /* Brillo amarillo */
 }
 
-.ad-title {
-    color: var(--neon-yellow);
-    font-weight: bold;
-    font-size: 1rem;
-    text-shadow: 0 0 5px var(--neon-yellow);
+/* Enlaces a imágenes reales de calculadoras/tecnología neón */
+.img-1 { background-image: url('https://images.unsplash.com/photo-1611125832047-1d7ad1e893be?auto=format&fit=crop&w=300'); }
+.img-2 { background-image: url('https://images.unsplash.com/photo-1587141744103-b29361df1d61?auto=format&fit=crop&w=300'); }
+.img-3 { background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300'); }
+.img-4 { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300'); }
+
+/* Calculadora con EFECTO NEÓN TOTAL */
+.content-area { 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px; 
+    background: radial-gradient(circle, #1a1a1a, #000); 
 }
 
-.ad-text {
-    color: #eee;
-    font-size: 0.9rem;
-    margin-top: 5px;
+.calculator { 
+    background: rgba(20,20,25,0.95); 
+    padding: 25px; 
+    border-radius: 25px; 
+    border: 2px solid var(--neon-blue); 
+    /* El truco del neón: múltiples sombras */
+    box-shadow: 0 0 10px var(--neon-blue), 
+                0 0 20px var(--neon-blue), 
+                inset 0 0 10px rgba(0, 210, 255, 0.2); 
+    width: 100%; 
+    max-width: 320px; 
 }
 
-.ad-placeholder {
-    height: 100px;
-    background: #1a1a1a;
-    border: 1px dashed #333;
-    color: #555;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
-
-/* --- ÁREA DE CONTENIDO CENTRAL --- */
-.content-area {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    align-items: center;
-    background: radial-gradient(circle at center, #1a1a1a 0%, #000 70%);
-}
-
-.calculator-wrapper {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-/* Reutilizando y Ajustando el CSS de la Calculadora de Neón (anterior) */
-.calculator {
-    background: var(--card-bg);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3), 0 0 10px var(--neon-blue);
-    width: 280px; /* Reducida un poco para la interfaz */
-}
-
-.display input {
-    width: 100%;
-    height: 50px;
-    background: transparent;
-    border: none;
-    outline: none;
-    text-align: right;
-    color: var(--neon-blue);
-    font-size: 1.8rem;
+.display input { 
+    width: 100%; 
+    height: 60px; 
+    background: #000; 
+    border-radius: 10px;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue); 
+    font-size: 2rem; 
+    text-align: right; 
     padding: 10px;
-    margin-bottom: 15px;
-    text-shadow: 0 0 8px var(--neon-blue);
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--neon-blue);
 }
 
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-}
+.buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 
-button {
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-button:hover {
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 8px var(--neon-blue);
-    transform: scale(1.03);
-}
-
-.btn-operator { color: var(--neon-blue); }
-.btn-sci { color: var(--neon-sci); font-size: 0.8rem; }
-.btn-clear { color: var(--neon-clear); }
-
-.btn-equal {
-    background: var(--neon-blue);
-    color: black;
+button { 
+    padding: 18px; 
+    border-radius: 12px; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    background: #1a1a1a; 
+    color: white; 
     font-weight: bold;
-    box-shadow: 0 0 15px var(--neon-blue);
+    cursor: pointer; 
+    transition: 0.3s; 
 }
 
-.btn-equal:hover {
-    background: white;
-    box-shadow: 0 0 25px white;
+button:hover { 
+    box-shadow: 0 0 15px var(--neon-blue); 
+    border-color: var(--neon-blue);
+    transform: translateY(-3px); 
 }
 
-/* --- SECCIÓN DE NOTAS (Abajo de la calculadora) --- */
-.notes-section {
-    width: 80%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+.btn-operator { color: var(--neon-blue); border-color: rgba(0, 210, 255, 0.3); }
+.btn-sci { color: var(--neon-sci); font-size: 0.9rem; border-color: rgba(255, 0, 127, 0.3); }
+.btn-clear { color: var(--neon-clear); border-color: rgba(255, 60, 60, 0.3); }
+
+.btn-equal { 
+    background: var(--neon-blue); 
+    color: black; 
+    box-shadow: 0 0 20px var(--neon-blue); 
 }
 
-.notes-label {
-    color: var(--neon-yellow);
-    font-weight: bold;
-    text-shadow: 0 0 5px var(--neon-yellow);
+/* Nota Libre con brillo amarillo */
+.notes-section { width: 100%; max-width: 320px; margin-top: 25px; }
+.notes-label { color: var(--neon-yellow); text-shadow: 0 0 5px var(--neon-yellow); margin-bottom: 5px; display: block; }
+
+textarea { 
+    width: 100%; 
+    height: 100px; 
+    background: #000; 
+    color: white; 
+    border: 2px solid var(--neon-yellow); 
+    border-radius: 12px; 
+    padding: 12px; 
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.2);
+    resize: none; 
 }
 
-#free-notes {
-    height: 100px;
-    background-color: #111;
-    border: 1px solid rgba(255, 235, 59, 0.3);
-    border-radius: 10px;
-    color: #eee;
-    padding: 15px;
-    font-size: 1rem;
-    outline: none;
-    resize: none; /* Evita que el usuario cambie el tamaño manualmente */
-    box-shadow: 0 0 10px rgba(255, 235, 59, 0.1);
-}
-
-#free-notes:focus {
-    border-color: var(--neon-yellow);
-    box-shadow: 0 0 15px rgba(255, 235, 59, 0.3);
-}
-
-/* --- RESPONSIVE (Móviles) --- */
-@media (max-width: 900px) {
-    --sidebar-width: 0px; /* Ocultar laterales en móvil */
-    .sidebar { display: none; }
-    .content-area { width: 100%; }
-    .main-header .welcome-text { font-size: 1.5rem; }
+/* Móvil Responsivo */
+@media (max-width: 800px) {
+    .main-container { flex-direction: column; }
+    .sidebar { width: 100%; order: 2; padding: 15px; flex-direction: row; overflow-x: auto; border: none; border-top: 2px solid var(--neon-yellow); }
+    .image-neon-container { min-width: 150px; height: 110px; }
+    .content-area { order: 1; padding: 15px; }
 }
